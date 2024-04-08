@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+  inception:
+    name: inception
+
 services:
   nginx:
     build: requeriments/nginx
@@ -7,3 +11,34 @@ services:
     container_name: nginx
     ports:
         - "443:443"
+    depends_on:
+        - wordpress
+    volumes:
+        - wordpress:/var/www/html
+    networks:
+        - inception
+    env_file:
+        - .env
+    restart: always
+
+  wordpress:
+    build: requeriments/wordpress
+    image: wordpress
+    container_name: wordpress
+    #depends_on:
+    #   - mariadb
+    volumes:
+        - wordpress:/var/www/html
+    networks:
+        - inception
+    env_file:
+        - .env
+
+volumes:
+  wordpress:
+     driver: local
+     driver_opts:
+        o: bind
+        type: none
+        device: /home/mrollo/data/wordpress
+
