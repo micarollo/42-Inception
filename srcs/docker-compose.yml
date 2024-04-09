@@ -3,6 +3,7 @@ version: "3.8"
 networks:
   inception:
     name: inception
+    driver: bridge
 
 services:
   nginx:
@@ -25,13 +26,28 @@ services:
     build: requeriments/wordpress
     image: wordpress
     container_name: wordpress
-    #depends_on:
-    #   - mariadb
+    depends_on:
+       - mariadb
     volumes:
         - wordpress:/var/www/html
+    restart: always
     networks:
         - inception
     env_file:
+        - .env
+
+  mariadb:
+     build: requeriments/mariadb
+     image: mariadb
+     container_name: mariadb
+     #depends_on:
+     #   - wordpress
+     volumes:
+        - mariadb:/var/lib/myql
+     restart: always
+     networks:
+        - inception
+     env_file:
         - .env
 
 volumes:
@@ -41,4 +57,9 @@ volumes:
         o: bind
         type: none
         device: /home/mrollo/data/wordpress
-
+  mariadb:
+      driver: local
+      driver_opts:
+         o: bind
+         type: none
+         device: /home/mrollo/data/mariadb
