@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt update -y &&  apt install php-fpm php-mysql -y mariadb-client curl
+RUN apt-get update -y && apt-get install php php-fpm php-mysql -y mariadb-client curl
 
 COPY ./tools/wp-script.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wp-script.sh
