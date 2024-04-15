@@ -23,7 +23,8 @@ services:
     restart: always
 
   wordpress:
-    build: requeriments/wordpress
+    build: 
+       context: requeriments/wordpress
     image: wordpress
     container_name: wordpress
     depends_on:
@@ -37,7 +38,8 @@ services:
         - .env
 
   mariadb:
-     build: requeriments/mariadb
+     build:
+       context: requeriments/mariadb
      image: mariadb
      container_name: mariadb
      #depends_on:
