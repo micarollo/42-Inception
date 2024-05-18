@@ -42,8 +42,6 @@ services:
        context: requeriments/mariadb
      image: mariadb
      container_name: mariadb
-     #depends_on:
-     #   - wordpress
      volumes:
         - mariadb:/var/lib/myql
      restart: always

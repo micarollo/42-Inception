@@ -1,6 +1,5 @@
 #! /bin/bash
 
-#service mysql start
 service mariadb start
 
 if [ ! -d /var/lib/mysql/${DB_NAME} ];
@@ -13,5 +12,4 @@ then
 fi
 
 service mariadb stop
-#mysqld
 exec "$@"
